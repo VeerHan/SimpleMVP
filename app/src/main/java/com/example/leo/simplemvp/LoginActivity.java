@@ -40,13 +40,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         mBtnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.login(getUsername(), getPassword());
+                mPresenter.login();
             }
         });
     }
 
     private void initPresenter() {
-        mPresenter = new LoginPresenter(new LoginViewModel(), this);
+        mPresenter = new LoginPresenter(new LoginViewModel());
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -82,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     protected void onDestroy() {
         if (mPresenter != null) {
+            mPresenter.detachView();
             mPresenter = null;
         }
         super.onDestroy();

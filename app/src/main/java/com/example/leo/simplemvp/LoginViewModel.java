@@ -8,18 +8,19 @@ import android.text.TextUtils;
  * @author lei.han
  * @time 2017/11/9 上午10:58
  */
-public class LoginViewModel {
+public class LoginViewModel implements IUserModel {
 
     private Handler handler = new Handler(Looper.getMainLooper());
 
-    public void login(final String username, String password, final Callback callBack) {
+    @Override
+    public void login(final String username, String password, final Callback callback) {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (TextUtils.isEmpty(username)) {
-                    callBack.onFailure();
+                    callback.onFailure();
                 } else {
-                    callBack.onSuccess();
+                    callback.onSuccess();
                 }
             }
         }, 1000);
